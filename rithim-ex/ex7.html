@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+  <h2 id="header">My Favourite Movies</h2>
+  <form>
+    Title:
+    <input type="text">
+    Rating:
+    <input type="number">
+    <input type="submit">
+  </form>
+  <table class="table">
+    <thead>
+      <th>Title</th>
+      <th>Rating</th>
+      <th>Delete</th>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</body>
+</html>
+
+#header {
+  text-align: center;
+}
+
+body {
+  padding: 10vw;
+}
+
+table {
+  padding-top: 20px;
+}
+
+$(function() {
+  $( "form" ).submit(function(event) {
+    event.preventDefault();
+    $title = $( "input" ).eq(0).val();
+    $rating = $( "input" ).eq(1).val();
+    console.log($title, $rating);
+    $markup = "<tr><td>" + $title + "</td><td>" + $rating + 
+    "</td><td><button class='btn btn-danger' onClick='removeMe(this)'>Delete</button></td>";
+    $( "table tbody").append($markup);    
+  })
+});
+
+function removeMe(el) {
+  $(el).parents("tr").remove();
+} 
+
