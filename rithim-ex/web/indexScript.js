@@ -1,60 +1,38 @@
-const replaceWith = (string, i, j) => {
-    return string.replace(RegExp(i, "g"), j);
+
+const sumEvenArguments = (...params) => params.reduce((acc, curr) => {
+  if (curr % 2 == 0) return acc + curr;
+  return acc;
+}, 0);  
+
+const invokeMax = (fn, max) => {
+  let maxVal = max;
+  return fn.bind(this);
 }
 
-const acceptNumbersOnly = (...params) => [...params].every(elem => typeof elem == 'number' && !isNaN(elem));
-
-const mergeArrays = (arr, arr1) => arr.concat(arr1).sort();
-
-const mergeObjects = (obj1, obj2) => {
-  let emptyObj = {};
-  for (let property in obj1) {
-    emptyObj[property] = obj1[property];
-  }
-  for (let property in obj2) {
-    emptyObj[property] = obj2[property];
-  }
-  return emptyObj;
-}
-
-describe("Replace a letter", function() {
-    it("replaces a letter in awesome", function() {
-        expect(replaceWith("awesome", "e", "z")).toEqual("awzsomz");
-    });
+describe("Takes all arguments passed to a function and return the sum of the even ones", function() {
+  it("ignores all odd numbers", function() {
+    expect(sumEvenArguments(1, 3, 5)).toEqual(0);
+  });
+  it("works with all even numbers", function() {
+    expect(sumEvenArguments(2, 4, 6)).toEqual(12);
+  });
+  it("works with a mixture of odd and even numbers", function() {
+    expect(sumEvenArguments(1, 4, 5, 4)).toEqual(8);
+  });
 });
 
-describe("accepts numbers only", function() {
-    it("uses a string", function() {
-        expect(acceptNumbersOnly(1, "foo")).toEqual(false);
-    });
-    it("true", function() {
-        expect(acceptNumbersOnly(1, 2, 3, 4, 5, 6, 7)).toEqual(true);
-    });
-    it("does not accept NaN", function() {
-        expect(acceptNumbersOnly(1, 2, 3, 4, 5, 6, NaN)).toEqual(false);
-    });
-});
-
-describe("merge arrays", function () {
-    it("and sorts", function () {
-       expect(mergeArrays([2,1],[3,4])).toEqual([1,2,3,4]);
-    });
-});
-
-describe("Merge Objects", function () {
-    var obj1 = {
-      name: "Foo",
-      num: 33
-    };
-    var obj2 = {
-        test: "thing",
-        num: 55
-    };
-    it("merge two objects", function () {
-      expect(mergeObjects(obj1, obj2)).toEqual({
-        name: "Foo",
-        test: "thing",
-        num: 55
-    });
+describe("accepts a function and a max amount", function() {
+  function add (a, b) => a + b; 
+  it("is maxed out for negatives", function() {
+    let addForNeg = invokeMax(add, -1);
+    
+  })
+  it("addOnlyThree times", function () {
+    let addForThree = invokeMax(add, -1);
+    
+  });
+  it("addsOne time", function() {
+    let addForOne = invokeMax(add, -1);
+    
   });
 });
